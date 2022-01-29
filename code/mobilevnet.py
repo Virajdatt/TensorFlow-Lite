@@ -1,7 +1,22 @@
 from tflite_runtime.interpreter import Interpreter
 import PIL.Image as Image
 import numpy as np
+from picamera import PiCamera
+from time import sleep, gmtime
 
+
+def picam():
+
+  camera = PiCamera()
+  camera.resolution = (1122, 1024)
+  camera.start_preview()
+  sleep(5)
+  camera.stop_preview()
+  camera.capture("/home/pi/Desktop/test_img.jpg")
+
+picam()
+
+asads
 
 interpreter = Interpreter(model_path='../models/mvnet_converted.tflite')
 
@@ -30,8 +45,9 @@ def preprocess_inference_image(img: str):
     img_expanded = img[np.newaxis, ...]
     print('New shape', img_expanded.shape)
     return img_expanded
-
-example_img_for_tflite = preprocess_inference_image('../image02.png')
+#/home/pi/Desktop/test_img.jpg
+#example_img_for_tflite = preprocess_inference_image('../image02.png')
+example_img_for_tflite = preprocess_inference_image('/home/pi/Desktop/test_img.jpg')
 
 interpreter.allocate_tensors()
 print("Input data shape:", example_img_for_tflite.shape)
